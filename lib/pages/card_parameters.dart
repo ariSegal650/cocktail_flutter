@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:sushi/models/Cocktail_parametrs.dart';
 import 'package:sushi/services/api_service.dart';
@@ -16,6 +18,9 @@ class CardParameters extends StatefulWidget {
 
 class _CardParameterstState extends State<CardParameters> {
   late Cocktail_parametrs item;
+  List<Cocktail_parametrs> faivortList = List.empty();
+int? maxLines = 1;
+
   bool isLoading = true;
   bool one = false;
   bool FaivorteIcon = false;
@@ -24,6 +29,7 @@ class _CardParameterstState extends State<CardParameters> {
     if (!one) {
       try {
         item = await api_service.getApi().getCocktailparameters(id);
+        FaivorteIcon = await LocalStore().checkExist(item.id);
         one = true;
         setState(() {
           isLoading = false;
@@ -33,14 +39,13 @@ class _CardParameterstState extends State<CardParameters> {
         print(e);
       }
     }
-    // print("one try");
   }
 
   @override
   Widget build(BuildContext context) {
     final String id = ModalRoute.of(context)?.settings.arguments as String;
     fetchData(id);
-    if (isLoading ) {
+    if (isLoading) {
       return const Center(
         child: Padding(
           padding: EdgeInsets.all(16.0), // Adjust the margin as needed
@@ -92,16 +97,16 @@ class _CardParameterstState extends State<CardParameters> {
                     height: 28,
                     child: ElevatedButton(
                       onPressed: () async {
-                       //   LocalStore().clearAllData();
+                        //   LocalStore().clearAllData();
                         if (!FaivorteIcon) {
                           LocalStore().saveCocktail(item.id, item);
                           print("saved");
-                        
                         } else {
-                         LocalStore().removeData(item.id);
+                          LocalStore().removeData(item.id);
                         }
+                        //  LocalStore().streamController.add(111);
                         setState(() {
-                            FaivorteIcon = !FaivorteIcon;
+                          FaivorteIcon = !FaivorteIcon;
                         });
                       },
                       style: ButtonStyle(
@@ -173,16 +178,24 @@ class _CardParameterstState extends State<CardParameters> {
                               return Row(
                                 children: [
                                   Expanded(
-                                    child: Text(
-                                      '$indexPlus. $ingredient',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal,
-                                        color:
-                                            Color.fromARGB(255, 151, 226, 183),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          maxLines =2;
+                                        });
+                                        print("tap");
+                                      },
+                                      child: Text(
+                                        '$indexPlus. $ingredient',
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.normal,
+                                          color: Color.fromARGB(
+                                              255, 151, 226, 183),
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: maxLines,
                                       ),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
                                     ),
                                   ),
                                 ],

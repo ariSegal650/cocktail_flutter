@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatefulWidget {
@@ -6,7 +7,8 @@ class CustomCard extends StatefulWidget {
   final String image;
   final String difficulty;
 
-  const CustomCard({super.key, 
+  const CustomCard({
+    super.key,
     required this.id,
     required this.name,
     required this.image,
@@ -31,27 +33,38 @@ class _CustomCardState extends State<CustomCard> {
           setState(() {
             // Toggle the isCardClicked state to change the color
             isCardClicked = !isCardClicked;
-            print("8989");
-            Navigator.pushNamed(context, '/secondPage',arguments: widget.id);
 
+            Navigator.pushNamed(context, '/secondPage', arguments: widget.id);
           });
         },
         child: Card(
           margin: const EdgeInsets.all(16.0),
-         
           child: Column(
             children: [
-              Image.network(widget.image, width: double.infinity),
+              ClipRect(
+                child: Image.network(
+                  widget.image,
+                  width: double.infinity,
+                  height: 220,
+                  fit: BoxFit.cover,
+                ),
+              ),
               ListTile(
                 title: Text(
-                  widget.name,),
+                  widget.name,
+                ),
               ),
-               Text(
+              Text(
                 widget.difficulty,
-               style: TextStyle(
-                color: widget.difficulty == 'Easy' ? Colors.green : (widget.difficulty == 'Hard' ? Colors.red : Colors.black),
-                ),),
-
+                style: TextStyle(
+                  color: widget.difficulty == 'Easy'
+                      ? Colors.green
+                      : (widget.difficulty == 'Hard'
+                          ? Colors.red
+                          : Colors.black),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
           ),
         ),

@@ -1,42 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:sushi/pages/card_parameters.dart';
 import 'package:sushi/pages/page1.dart';
+import 'package:sushi/pages/favoritePage.dart';
+import 'package:sushi/pages/sidePage.dart';
 
 void main() {
-  runApp( const MainApp());
+  runApp( MainApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MainApp extends StatelessWidget with RouteAware{
+   MainApp({super.key});
 
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
+      navigatorObservers: [routeObserver],
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => const MyHomePage(),
-        '/secondPage': (context) =>  CardParameters(),
+        '/': (context) =>  MyHomePage(),
+        '/secondPage': (context) => const CardParameters(),
+        '/favorite': (context) => const favorite(),
       },
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+   MyHomePage({super.key});
 
+  
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-  
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('My App'),
+      ),
+      drawer: const sidePage(),
       
-      body: SafeArea(
+      body: const SafeArea(
         child: SingleChildScrollView(
-          child: 
-            Page1(),
-          
+          child: Page1(),
         ),
       ),
     );
   }
 }
+class PageRouteObserver extends RouteObserver<PageRoute> {}
+
