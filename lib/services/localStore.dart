@@ -5,19 +5,16 @@ import '../models/Cocktail_parametrs.dart';
 
 class LocalStore {
   
-static List<Cocktail_parametrs> _cocktailList = [];
 
   void saveCocktail(String key, Cocktail_parametrs value) async {
     final prefs = await SharedPreferences.getInstance();
     final cocktailJson = jsonEncode(value.toJson());
     await prefs.setString(key, cocktailJson);
-    _cocktailList=await getAllStrings();
   }
 
   void removeData(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(key);
-    _cocktailList=await getAllStrings();
   }
 
   Future<Cocktail_parametrs?> getCocktail(String key) async {
@@ -53,19 +50,16 @@ static List<Cocktail_parametrs> _cocktailList = [];
           }
         }
       }
-      _cocktailList =result;
       return result;
     } catch (e) {
       print("555");
     }
-     _cocktailList =List.empty();
     return List.empty();
   }
 
   void clearAllData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-    _cocktailList=await getAllStrings();
 
   }
 }

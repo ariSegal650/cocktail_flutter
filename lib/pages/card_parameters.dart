@@ -34,7 +34,6 @@ int? maxLines = 1;
         setState(() {
           isLoading = false;
         });
-        print(item.image);
       } catch (e) {
         print(e);
       }

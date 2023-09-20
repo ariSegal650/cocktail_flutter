@@ -34,7 +34,6 @@ class _Page1State extends State<Page1> {
           .getCocktails()
           .whenComplete(() => isLoading = false);
       isSuccessful = true;
-      print("new list");
 
       setState(() {
         isSuccessful = true;
@@ -128,18 +127,11 @@ class _Page1State extends State<Page1> {
             },
           ),
         ),
-        
         Container(
           color: const Color.fromARGB(255, 223, 234, 243),
-          child: Column(
+          child: const Column(
             children: [
-              !favorite().favoriteList.isEmpty
-                  ? const Column(
-                      children: [
-                        favorite(),
-                      ],
-                    )
-                  : const SizedBox(),
+              favorite(page: "page1",),
             ],
           ),
         )

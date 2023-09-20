@@ -23,7 +23,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
       routes: {
         '/': (context) =>  MyHomePage(),
         '/secondPage': (context) => const CardParameters(),
-        '/favorite': (context) => const favorite(),
+        '/favorite': (context) => const favorite(page: "main",),
       },
     );
   }
@@ -49,5 +49,4 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
-class PageRouteObserver extends RouteObserver<PageRoute> {}
 

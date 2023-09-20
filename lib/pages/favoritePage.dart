@@ -6,7 +6,8 @@ import '../models/Cocktail_parametrs.dart';
 import '../services/localStore.dart';
 
 class favorite extends StatefulWidget {
-  const favorite({super.key});
+  final String? page;
+  const favorite({super.key, required this.page});
 
   @override
   State<favorite> createState() => _favoriteState();
@@ -37,7 +38,8 @@ class _favoriteState extends State<favorite> {
   @override
   void initState() {
     super.initState();
-    getAllFaviort();
+   // getAllFaviort();
+   
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -53,15 +55,15 @@ class _favoriteState extends State<favorite> {
   @override
   Widget build(BuildContext context) {
     getAllFaviort();
-
-    if (isLoading) {
+    if (isLoading && widget.page!="page1") {
       return const Center(
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: CircularProgressIndicator(),
         ),
       );
-    } else if (faivortList.isEmpty) {
+    }
+     else if (faivortList.isEmpty && widget.page!="page1") {
       return Scaffold(
         body: Center(
           child: Padding(
@@ -91,7 +93,8 @@ class _favoriteState extends State<favorite> {
             height: 50,
             color: const Color.fromARGB(255, 223, 234, 243),
           ),
-          Text(
+          if(!faivortList.isEmpty)
+          const Text(
             "Favorite:",
             style: TextStyle(fontSize: 20),
           ),
