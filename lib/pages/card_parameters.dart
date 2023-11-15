@@ -19,7 +19,7 @@ class CardParameters extends StatefulWidget {
 class _CardParameterstState extends State<CardParameters> {
   late Cocktail_parametrs item;
   List<Cocktail_parametrs> faivortList = List.empty();
-int? maxLines = 1;
+  int? maxLines = 1;
 
   bool isLoading = true;
   bool one = false;
@@ -180,7 +180,7 @@ int? maxLines = 1;
                                     child: GestureDetector(
                                       onTap: () {
                                         setState(() {
-                                          maxLines =2;
+                                          maxLines = 2;
                                         });
                                         print("tap");
                                       },

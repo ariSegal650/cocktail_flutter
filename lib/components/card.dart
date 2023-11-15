@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatefulWidget {
-  final String id;
+  final String id; 
   final String name;
   final String image;
   final String difficulty;

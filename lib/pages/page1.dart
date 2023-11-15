@@ -48,6 +48,7 @@ class _Page1State extends State<Page1> {
         isLoading = false;
       });
     }
+ 
   }
 
   // function get the text from search;

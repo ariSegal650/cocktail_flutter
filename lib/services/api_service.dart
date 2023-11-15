@@ -26,4 +26,3 @@ abstract class api_service {
   Future<Cocktail_parametrs> getCocktailparameters(@Path("id") String id);
 }
 
-

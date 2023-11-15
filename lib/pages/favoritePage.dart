@@ -60,7 +60,7 @@ class _favoriteState extends State<favorite> {
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: CircularProgressIndicator(),
-        ),
+        ), 
       );
     }
      else if (faivortList.isEmpty && widget.page!="page1") {
